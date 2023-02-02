@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - CharacterDetailView
 
-final class CharacterDetailView: RMBaseViewController {
+final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
     var viewModel: DefaultCharacterDetailViewModel
     var model: CharacterDetailModel
 
@@ -21,11 +21,11 @@ final class CharacterDetailView: RMBaseViewController {
         return scrollView
     }()
 
-    private(set) var stackView: UIStackView = {
-        let stackView = UIStackView(frame: .zero)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    private(set) var contentView: UIView = {
+        let contentView = UIView(frame: .zero)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
 
-        return stackView
+        return contentView
     }()
 
     private(set) var characterImageView: UIImageView = {
@@ -105,7 +105,7 @@ final class CharacterDetailView: RMBaseViewController {
         view.backgroundColor = .white
 
         setupScrollView()
-        setupStackView()
+        setupContentView()
 
         setupCharacterImageView()
         setupCharacterNameView()
@@ -118,7 +118,6 @@ final class CharacterDetailView: RMBaseViewController {
     // MARK: - Setup view method
 
     private func setupNavigationTitle() {
-//        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = model.name ?? ""
     }
 
@@ -141,12 +140,12 @@ final class CharacterDetailView: RMBaseViewController {
         setupScrollViewConstraints()
     }
 
-    private func setupStackView() {
-        scrollView.addSubview(stackView)
+    private func setupContentView() {
+        scrollView.addSubview(contentView)
     }
 
     private func setupCharacterImageView() {
-        stackView.addSubview(characterImageView)
+        contentView.addSubview(characterImageView)
 
         characterImageView.clipsToBounds = true
         characterImageView.contentMode = .scaleAspectFill
@@ -158,51 +157,57 @@ final class CharacterDetailView: RMBaseViewController {
             characterImageView.kf.setImage(with: url)
         }
 
+        let status = model.status ?? false
+
+        characterImageView.layer.cornerRadius = 150.0
+        characterImageView.layer.borderColor = status ? UIColor.green.cgColor : UIColor.red.cgColor
+        characterImageView.layer.borderWidth = CGFloat(5)
+
         setupCharacterImageViewConstraints()
     }
 
     private func setupCharacterNameView() {
-        stackView.addSubview(characterNameView)
+        contentView.addSubview(characterNameView)
 
         let model = RMDataViewModel(titleText: "Name",
                                     descriptionText: self.model.name ?? "")
-        characterLocationView.configure(model: model)
+        characterNameView.configure(model: model)
 
         setupCharacterNameViewConstraints()
     }
 
     private func setupCharacterGenderView() {
-        stackView.addSubview(characterGenderView)
+        contentView.addSubview(characterGenderView)
 
         let model = RMDataViewModel(titleText: "Gender",
                                     descriptionText: self.model.gender ?? "")
-        characterLocationView.configure(model: model)
+        characterGenderView.configure(model: model)
 
         setupCharacterGenderViewConstraints()
     }
 
     private func setupCharacterSpecieView() {
-        stackView.addSubview(characterSpecieView)
+        contentView.addSubview(characterSpecieView)
 
         let model = RMDataViewModel(titleText: "Specie",
                                     descriptionText: self.model.species ?? "")
-        characterLocationView.configure(model: model)
+        characterSpecieView.configure(model: model)
 
         setupCharacterSpecieViewConstraints()
     }
 
     private func setupCharacterOriginView() {
-        stackView.addSubview(characterOriginView)
+        contentView.addSubview(characterOriginView)
 
         let model = RMDataViewModel(titleText: "Origin",
                                     descriptionText: self.model.origin ?? "")
-        characterLocationView.configure(model: model)
+        characterOriginView.configure(model: model)
 
         setupCharacterOriginViewConstraints()
     }
 
     private func setupCharacterLocationView() {
-        stackView.addSubview(characterLocationView)
+        contentView.addSubview(characterLocationView)
 
         let model = RMDataViewModel(titleText: "Location",
                                     descriptionText: self.model.location ?? "")

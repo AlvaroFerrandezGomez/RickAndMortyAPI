@@ -11,17 +11,17 @@ extension RMCharacterCell {
     func setupCharacterImageViewConstraints() {
         NSLayoutConstraint.activate([
             characterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
-            characterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
-            characterImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2),
-            characterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
+            characterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            characterImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            characterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 
     func setupCharacterNameViewConstraint() {
         NSLayoutConstraint.activate([
             characterNameView.heightAnchor.constraint(equalToConstant: 30),
-            characterNameView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 3),
-            characterNameView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -3),
+            characterNameView.leadingAnchor.constraint(equalTo: characterImageView.leadingAnchor),
+            characterNameView.trailingAnchor.constraint(equalTo: characterImageView.trailingAnchor),
             characterNameView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
         ])
     }

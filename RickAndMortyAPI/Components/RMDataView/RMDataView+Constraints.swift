@@ -18,7 +18,7 @@ extension RMDataView {
 
     func setupDescriptionTextLabelConstraints() {
         NSLayoutConstraint.activate([
-            descriptionTextLabel.topAnchor.constraint(equalTo: titleTextLabel.topAnchor, constant: 8),
+            descriptionTextLabel.topAnchor.constraint(equalTo: titleTextLabel.topAnchor, constant: 16),
             descriptionTextLabel.leadingAnchor.constraint(equalTo: titleTextLabel.leadingAnchor),
             descriptionTextLabel.trailingAnchor.constraint(equalTo: titleTextLabel.trailingAnchor),
             descriptionTextLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),

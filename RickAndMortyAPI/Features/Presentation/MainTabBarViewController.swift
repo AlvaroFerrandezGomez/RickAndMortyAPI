@@ -20,40 +20,28 @@ final class MainTabBarViewController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    let charactersVC: CharactersView = {
-        let charactersVC = CharactersView()
-        charactersVC.tabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person.3.sequence"), tag: 0)
-
-        return charactersVC
-    }()
-
-    let episodesVC: EpisodesView = {
-        let episodesVC = EpisodesView()
-        episodesVC.tabBarItem = UITabBarItem(title: "Episodes", image: UIImage(systemName: "film"), tag: 1)
-
-        return episodesVC
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupView()
+        setupViews()
     }
 
-    final func setupView() {
-        charactersVC.coordinator = coordinator
-        episodesVC.coordinator = coordinator
+    final func setupViews() {
+        guard let coordinator = coordinator else { return }
 
-        if let characterCoordinator = charactersVC.coordinator {
-            coordinator?.childCoordinators.append(characterCoordinator)
-        }
-        
-        if let episodesCoordinator = episodesVC.coordinator {
-            coordinator?.childCoordinators.append(episodesCoordinator)
-        }
+        let charactersNavController = UINavigationController()
+        let charactersCoordinator = CharactersCoordinator(navigationController: charactersNavController)
+        charactersCoordinator.parentCoordinator = coordinator
 
-        setViewControllers([UINavigationController(rootViewController: charactersVC),
-                            UINavigationController(rootViewController: episodesVC)],
+        let episodesNavController = UINavigationController()
+        let episodesCoordinator = EpisodesCoordinator(navigationController: episodesNavController)
+        episodesCoordinator.parentCoordinator = coordinator
+
+        let finalCharactersNavController = charactersCoordinator.showCharactersView()
+        let finalEpisodesNavController = episodesCoordinator.showEpisodesView()
+
+        setViewControllers([finalCharactersNavController,
+                            finalEpisodesNavController],
                            animated: true)
     }
 }

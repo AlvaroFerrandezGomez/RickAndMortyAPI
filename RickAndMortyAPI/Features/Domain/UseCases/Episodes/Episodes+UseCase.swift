@@ -14,7 +14,6 @@ protocol EpisodesUseCase {
 final class DefaultEpisodesUseCase: EpisodesUseCase {
     private var repository: EpisodesRepository
     private var currentPage = 0
-    private var totalPages = 0
     private var episodesArray: [EpisodesResultEntity]? = []
 
     init(repository: EpisodesRepository = DefaultEpisodesRepository()) {
@@ -27,7 +26,6 @@ final class DefaultEpisodesUseCase: EpisodesUseCase {
             switch result {
             case .success(let decodable):
                 var entity = EpisodesEntity(decodable: decodable)
-                self.totalPages = entity.info?.pages ?? 1
                 let episodes = entity.results ?? []
                 self.episodesArray?.append(contentsOf: episodes)
                 entity.results = self.episodesArray

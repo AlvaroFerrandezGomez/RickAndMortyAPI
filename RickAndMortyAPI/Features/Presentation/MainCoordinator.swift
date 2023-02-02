@@ -7,32 +7,19 @@
 
 import UIKit
 
-class MainCoordinator: RMCoordinator {
-    var childCoordinators = [RMCoordinator]()
-    var navigationController: UINavigationController
+class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
+    var childCoordinators = [Coordinator]()
 
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    func getEntryPoint() -> UIViewController {
+        return MainTabBarViewController(coordinator: self)
     }
 
-    func start() {
-        let vc = MainTabBarViewController(coordinator: self)
-        navigationController.pushViewController(vc, animated: false)
-    }
-
-    func showCharacterDetail(characterSelected: CharacterDetailModel) {
-        let vc = CharacterDetailView(model: characterSelected)
-        navigationController.pushViewController(vc, animated: true)
-    }
-
-    func showError(error: RMError) {
-        let alertTitle = "An error has occurred"
-        let alertDescription = String(describing: error.localizedDescription)
-        let alertButtonText = "Accept"
-
-        let alertController = UIAlertController(title: alertTitle, message: alertDescription, preferredStyle: .alert)
-        let action = UIAlertAction(title: alertButtonText, style: .default)
-        alertController.addAction(action)
-        navigationController.present(alertController, animated: true)
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() {
+            if coordinator === child {
+                childCoordinators.remove(at: index)
+                break
+            }
+        }
     }
 }

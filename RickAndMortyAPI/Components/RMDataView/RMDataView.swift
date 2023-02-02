@@ -42,6 +42,7 @@ extension RMDataView {
         addSubview(titleTextLabel)
 
         titleTextLabel.text = model?.titleText ?? ""
+        titleTextLabel.font = UIFont.boldSystemFont(ofSize: 17)
         
         setupTitleTextLabelConstraints()
     }
@@ -50,6 +51,7 @@ extension RMDataView {
         addSubview(descriptionTextLabel)
 
         descriptionTextLabel.text = model?.descriptionText ?? ""
+        descriptionTextLabel.font = UIFont.italicSystemFont(ofSize: 14)
 
         setupDescriptionTextLabelConstraints()
     }

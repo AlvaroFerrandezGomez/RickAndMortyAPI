@@ -9,8 +9,8 @@ import UIKit
 
 // MARK: - EpisodesView
 
-final class EpisodesView: RMBaseViewController {
-    weak var coordinator: MainCoordinator?
+final class EpisodesView: RMBaseViewController<EpisodesCoordinator> {
+    weak var episodesCoordinator: EpisodesCoordinator?
 
     var viewModel = DefaultEpisodesViewModel()
 
@@ -74,7 +74,6 @@ final class EpisodesView: RMBaseViewController {
     // MARK: - Setup view method
 
     private func setupNavigationTitle() {
-//        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Episodes"
     }
 
@@ -97,7 +96,7 @@ final class EpisodesView: RMBaseViewController {
             guard let self = self,
                   let error = error else { return }
 
-            self.coordinator?.showError(error: error)
+            self.episodesCoordinator?.showError(error: error)
         }
 
         viewModel.model.bind { [weak self] model in

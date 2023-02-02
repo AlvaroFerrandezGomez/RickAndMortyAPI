@@ -53,7 +53,7 @@ extension RMCharacterCell {
         characterImageView.clipsToBounds = true
         characterImageView.contentMode = .scaleAspectFill
         characterImageView.layer.cornerRadius = 12.0
-        characterImageView.layer.borderColor = UIColor.white.cgColor
+        characterImageView.layer.borderColor = UIColor.black.cgColor
         characterImageView.layer.borderWidth = CGFloat(3)
         
         if let urlImage = model?.urlImage, let url = URL(string: urlImage) {
@@ -64,7 +64,7 @@ extension RMCharacterCell {
     }
     
     private func setupCharacterNameView() {
-        contentView.addSubview(characterNameView)
+        characterImageView.addSubview(characterNameView)
         
         characterNameView.clipsToBounds = true
         characterNameView.backgroundColor = .black

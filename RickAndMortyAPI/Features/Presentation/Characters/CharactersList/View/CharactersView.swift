@@ -9,8 +9,8 @@ import UIKit
 
 // MARK: - CharactersView
 
-final class CharactersView: RMBaseViewController, UISearchControllerDelegate, UISearchResultsUpdating {
-    weak var coordinator: MainCoordinator?
+final class CharactersView: RMBaseViewController<CharactersCoordinator>, UISearchControllerDelegate, UISearchResultsUpdating {
+    var charactersCoordinator: CharactersCoordinator?
 
     var viewModel = DefaultCharactersViewModel()
 
@@ -66,7 +66,6 @@ final class CharactersView: RMBaseViewController, UISearchControllerDelegate, UI
     // MARK: - Setup view method
 
     private func setupNavigationTitle() {
-//        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Characters"
     }
 
@@ -127,7 +126,7 @@ final class CharactersView: RMBaseViewController, UISearchControllerDelegate, UI
             guard let self = self,
                   let error = error else { return }
 
-            self.coordinator?.showError(error: error)
+            self.charactersCoordinator?.showError(error: error)
         }
 
         viewModel.model.bind { [weak self] model in
@@ -144,7 +143,7 @@ final class CharactersView: RMBaseViewController, UISearchControllerDelegate, UI
             guard let self = self,
                   let characterSelected = characterSelected else { return }
 
-            self.coordinator?.showCharacterDetail(characterSelected: characterSelected)
+            self.charactersCoordinator?.showCharacterDetail(characterSelected: characterSelected)
         }
     }
 

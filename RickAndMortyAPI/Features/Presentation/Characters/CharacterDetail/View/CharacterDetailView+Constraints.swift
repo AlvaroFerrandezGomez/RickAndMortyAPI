@@ -13,20 +13,21 @@ extension CharacterDetailView {
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83),
         ])
     }
 
-    func setupStackViewConstraints() {
+    func setupContentViewConstraints() {
+//        let heightConstraint = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+//        heightConstraint.priority = UILayoutPriority(250)
+
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 200),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+//            heightConstraint,
         ])
     }
 
@@ -41,9 +42,10 @@ extension CharacterDetailView {
 
     func setupCharacterNameViewConstraints() {
         NSLayoutConstraint.activate([
-            characterNameView.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: -16),
-            characterNameView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8),
-            characterNameView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -8),
+            characterNameView.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 8),
+            characterNameView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            characterNameView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            characterNameView.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
 
@@ -52,6 +54,7 @@ extension CharacterDetailView {
             characterGenderView.topAnchor.constraint(equalTo: characterNameView.bottomAnchor, constant: 8),
             characterGenderView.leadingAnchor.constraint(equalTo: characterNameView.leadingAnchor),
             characterGenderView.trailingAnchor.constraint(equalTo: characterNameView.trailingAnchor),
+            characterGenderView.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
 
@@ -60,6 +63,7 @@ extension CharacterDetailView {
             characterSpecieView.topAnchor.constraint(equalTo: characterGenderView.bottomAnchor, constant: 8),
             characterSpecieView.leadingAnchor.constraint(equalTo: characterNameView.leadingAnchor),
             characterSpecieView.trailingAnchor.constraint(equalTo: characterNameView.trailingAnchor),
+            characterSpecieView.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
 
@@ -68,6 +72,7 @@ extension CharacterDetailView {
             characterOriginView.topAnchor.constraint(equalTo: characterSpecieView.bottomAnchor, constant: 8),
             characterOriginView.leadingAnchor.constraint(equalTo: characterNameView.leadingAnchor),
             characterOriginView.trailingAnchor.constraint(equalTo: characterNameView.trailingAnchor),
+            characterOriginView.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
 
@@ -76,6 +81,8 @@ extension CharacterDetailView {
             characterLocationView.topAnchor.constraint(equalTo: characterOriginView.bottomAnchor, constant: 8),
             characterLocationView.leadingAnchor.constraint(equalTo: characterNameView.leadingAnchor),
             characterLocationView.trailingAnchor.constraint(equalTo: characterNameView.trailingAnchor),
+            characterLocationView.heightAnchor.constraint(equalToConstant: 60),
+            characterLocationView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
     }
 }

@@ -9,8 +9,7 @@
 import XCTest
 
 final class CharactersRepositoryRepositorySuccessMock: CharactersRepository {
-    // misco añadir parametro
-    func fetchCharacters(completion: @escaping (Result<CharactersDecodable, RMError>) -> Void) {
+    func fetchCharacters(params: CharactersRepositoryParameters, completion: @escaping (Result<CharactersDecodable, RMError>) -> Void) {
         let json = CharactersMock.makeJsonMock()
         guard let decodable = try? JSONDecoder().decode(CharactersDecodable.self, from: json) else { return }
         completion(.success(decodable))
@@ -18,7 +17,7 @@ final class CharactersRepositoryRepositorySuccessMock: CharactersRepository {
 }
 
 final class CharactersRepositoryRepositoryFailureMock: CharactersRepository {
-    func fetchCharacters(completion: @escaping (Result<CharactersDecodable, RMError>) -> Void) {
+    func fetchCharacters(params: CharactersRepositoryParameters, completion: @escaping (Result<CharactersDecodable, RMError>) -> Void) {
         let error = RMError.parseError(message: "Could not get the decodable for the service response")
         completion(.failure(error))
     }
