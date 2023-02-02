@@ -66,7 +66,7 @@ final class CharactersView: RMBaseViewController<CharactersCoordinator>, UISearc
     // MARK: - Setup view method
 
     private func setupNavigationTitle() {
-        navigationItem.title = "Characters"
+        navigationItem.title = Constants.title
     }
 
     private func setupView() {
@@ -84,7 +84,7 @@ final class CharactersView: RMBaseViewController<CharactersCoordinator>, UISearc
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search a character"
+        searchController.searchBar.placeholder = Constants.placeholderText
     }
 
     private func setupCollectionView() {
@@ -166,7 +166,7 @@ final class CharactersView: RMBaseViewController<CharactersCoordinator>, UISearc
 extension CharactersView {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        if text != "", text.count > 2 {
+        if text != "" {
             viewModel.searchCharacter(searchText: text)
         } else {
             viewModel.resetSearch()

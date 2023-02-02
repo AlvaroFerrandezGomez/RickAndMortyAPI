@@ -10,7 +10,7 @@ import UIKit
 extension RMCharacterCell {
     func setupCharacterImageViewConstraints() {
         NSLayoutConstraint.activate([
-            characterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
+            characterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.topBottomDistance),
             characterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             characterImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             characterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -19,10 +19,10 @@ extension RMCharacterCell {
 
     func setupCharacterNameViewConstraint() {
         NSLayoutConstraint.activate([
-            characterNameView.heightAnchor.constraint(equalToConstant: 30),
+            characterNameView.heightAnchor.constraint(equalToConstant: Constants.nameViewHeight),
             characterNameView.leadingAnchor.constraint(equalTo: characterImageView.leadingAnchor),
             characterNameView.trailingAnchor.constraint(equalTo: characterImageView.trailingAnchor),
-            characterNameView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
+            characterNameView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.topBottomDistance),
         ])
     }
 

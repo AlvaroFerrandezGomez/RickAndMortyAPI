@@ -7,6 +7,15 @@
 
 import UIKit
 
+extension CharactersCoordinator {
+    enum Constants {
+        static let characterTitle = "Characters"
+        static let characterImage = "person.3.sequence"
+        static let errorTitle = "An error has occurred"
+        static let errorButton = "Accept"
+    }
+}
+
 class CharactersCoordinator: ChildCoordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
@@ -21,7 +30,7 @@ class CharactersCoordinator: ChildCoordinator {
         navigationController.setViewControllers([vc], animated: true)
 
         vc.charactersCoordinator = self
-        vc.tabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person.3.sequence"), tag: 0)
+        vc.tabBarItem = UITabBarItem(title: Constants.characterTitle, image: UIImage(systemName: Constants.characterImage), tag: 0)
 
         return navigationController
     }
@@ -32,9 +41,9 @@ class CharactersCoordinator: ChildCoordinator {
     }
 
     func showError(error: RMError) {
-        let alertTitle = "An error has occurred"
+        let alertTitle = Constants.errorTitle
         let alertDescription = String(describing: error.localizedDescription)
-        let alertButtonText = "Accept"
+        let alertButtonText = Constants.errorButton
 
         let alertController = UIAlertController(title: alertTitle, message: alertDescription, preferredStyle: .alert)
         let action = UIAlertAction(title: alertButtonText, style: .default)

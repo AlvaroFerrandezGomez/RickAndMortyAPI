@@ -65,7 +65,7 @@ final class EpisodesView: RMBaseViewController<EpisodesCoordinator> {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.showsVerticalScrollIndicator = false
-        tableView.rowHeight = 104
+        tableView.rowHeight = Constants.defaultRowHeight
         tableView.separatorStyle = .none
 
         setupTableViewConstraints()
@@ -74,7 +74,7 @@ final class EpisodesView: RMBaseViewController<EpisodesCoordinator> {
     // MARK: - Setup view method
 
     private func setupNavigationTitle() {
-        navigationItem.title = "Episodes"
+        navigationItem.title = Constants.title
     }
 
     // MARK: - Binding method

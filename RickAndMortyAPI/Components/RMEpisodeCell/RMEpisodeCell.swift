@@ -7,23 +7,6 @@
 
 import UIKit
 
-extension RMEpisodeCell {
-    private enum Constants {
-        static let textAlignmentDate = NSTextAlignment.left
-        static let textAlignmentDescription = NSTextAlignment.left
-        static let contentModeImage = ContentMode.scaleAspectFill
-        static let cornerRadius = 6.0
-        static let shadowOpacity = Float(0.2)
-        static let shadowOffset = CGSize(width: 1, height: 4)
-        static let shadowRadius = CGFloat(5.0)
-    }
-        
-    private enum Colours {
-        static let shadowColor = UIColor.black.cgColor
-        static let borderBackgroundColor = UIColor.white
-    }
-}
-
 final class RMEpisodeCell: UITableViewCell, ReusableCell {
     private var model: RMEpisodeCellModel?
     
@@ -31,13 +14,13 @@ final class RMEpisodeCell: UITableViewCell, ReusableCell {
         let episodeNameViewLabel = UIView(frame: .zero)
         episodeNameViewLabel.translatesAutoresizingMaskIntoConstraints = false
         episodeNameViewLabel.layer.masksToBounds = false
-        episodeNameViewLabel.layer.shadowColor = Colours.shadowColor
+        episodeNameViewLabel.layer.shadowColor = Constants.shadowColor
         episodeNameViewLabel.layer.shadowOpacity = Constants.shadowOpacity
         episodeNameViewLabel.layer.shadowOffset = Constants.shadowOffset
         episodeNameViewLabel.layer.shadowRadius = Constants.shadowRadius
         episodeNameViewLabel.layer.cornerRadius = Constants.cornerRadius
         episodeNameViewLabel.layer.shadowPath = nil
-        episodeNameViewLabel.backgroundColor = Colours.borderBackgroundColor
+        episodeNameViewLabel.backgroundColor = Constants.borderBackgroundColor
         episodeNameViewLabel.clipsToBounds = false
         
         return episodeNameViewLabel
