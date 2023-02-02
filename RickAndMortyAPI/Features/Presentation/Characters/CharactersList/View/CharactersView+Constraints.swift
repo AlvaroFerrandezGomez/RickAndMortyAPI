@@ -12,10 +12,10 @@ extension CharactersView {
         let safeArea: UILayoutGuide? = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safeArea?.topAnchor ?? view.topAnchor, constant: 8),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: safeArea?.bottomAnchor ?? view.bottomAnchor, constant: 16),
+            collectionView.topAnchor.constraint(equalTo: safeArea?.topAnchor ?? view.topAnchor, constant: Constants.paddingDistance),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.paddingDistance),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.paddingDistance),
+            collectionView.bottomAnchor.constraint(equalTo: safeArea?.bottomAnchor ?? view.bottomAnchor, constant: Constants.paddingDistance),
         ])
     }
 

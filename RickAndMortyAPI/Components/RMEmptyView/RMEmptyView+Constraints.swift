@@ -10,18 +10,18 @@ import UIKit
 extension RMEmptyView {
     func setupDescriptionTextLabelConstraints() {
         NSLayoutConstraint.activate([
-            descriptionTextLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            descriptionTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            descriptionTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            descriptionTextLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.paddingSize),
+            descriptionTextLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.paddingSize),
+            descriptionTextLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.paddingSize),
         ])
     }
 
     func setupLottieAnimationViewConstraints() {
         NSLayoutConstraint.activate([
-            lottieAnimationView.topAnchor.constraint(equalTo: descriptionTextLabel.bottomAnchor, constant: -16),
-            lottieAnimationView.leadingAnchor.constraint(equalTo: descriptionTextLabel.leadingAnchor),
-            lottieAnimationView.trailingAnchor.constraint(equalTo: descriptionTextLabel.trailingAnchor),
-            lottieAnimationView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            lottieAnimationView.topAnchor.constraint(equalTo: descriptionTextLabel.bottomAnchor, constant: Constants.lottieTopDistance),
+            lottieAnimationView.centerXAnchor.constraint(equalTo: descriptionTextLabel.centerXAnchor),
+            lottieAnimationView.heightAnchor.constraint(equalToConstant: Constants.animationSize),
+            lottieAnimationView.widthAnchor.constraint(equalToConstant: Constants.animationSize),
         ])
     }
 }

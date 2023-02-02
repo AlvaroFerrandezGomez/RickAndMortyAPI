@@ -52,9 +52,9 @@ extension RMCharacterCell {
         
         characterImageView.clipsToBounds = true
         characterImageView.contentMode = .scaleAspectFill
-        characterImageView.layer.cornerRadius = 12.0
-        characterImageView.layer.borderColor = UIColor.black.cgColor
-        characterImageView.layer.borderWidth = CGFloat(3)
+        characterImageView.layer.cornerRadius = Constants.radius
+        characterImageView.layer.borderColor = Constants.borderColor
+        characterImageView.layer.borderWidth = Constants.borderWidth
         
         if let urlImage = model?.urlImage, let url = URL(string: urlImage) {
             characterImageView.kf.setImage(with: url)

@@ -7,22 +7,12 @@
 
 import Foundation
 
-protocol CharacterDetailViewModelInput {
-    func viewDidLoad()
-}
+protocol CharacterDetailViewModelInput {}
 
-protocol CharacterDetailViewModelOutput {
-    var model: Box<CharacterDetailModel?> { get }
-}
+protocol CharacterDetailViewModelOutput {}
 
 typealias CharacterDetailViewModel = CharacterDetailViewModelInput & CharacterDetailViewModelOutput
 
 final class DefaultCharacterDetailViewModel: CharacterDetailViewModel {
-    var model: Box<CharacterDetailModel?> = Box(nil)
-
-    init(model: CharacterDetailModel? = nil) {
-        self.model.value = model
-    }
-
-    func viewDidLoad() {}
+    init() {}
 }

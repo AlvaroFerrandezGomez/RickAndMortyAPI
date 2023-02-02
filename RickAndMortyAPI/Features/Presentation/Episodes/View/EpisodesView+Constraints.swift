@@ -12,10 +12,10 @@ extension EpisodesView {
         let safeArea: UILayoutGuide? = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: safeArea?.topAnchor ?? view.topAnchor, constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.bottomAnchor.constraint(equalTo: safeArea?.bottomAnchor ?? view.bottomAnchor, constant: 16),
+            tableView.topAnchor.constraint(equalTo: safeArea?.topAnchor ?? view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.paddingDistance),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.paddingDistance),
+            tableView.bottomAnchor.constraint(equalTo: safeArea?.bottomAnchor ?? view.bottomAnchor, constant: Constants.paddingDistance),
         ])
     }
 }

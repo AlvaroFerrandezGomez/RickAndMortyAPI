@@ -74,7 +74,7 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
          model: CharacterDetailModel)
     {
         self.model = model
-        self.viewModel = DefaultCharacterDetailViewModel(model: model)
+        self.viewModel = DefaultCharacterDetailViewModel()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -89,9 +89,6 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
         super.viewDidLoad()
 
         setupView()
-        setupBinding()
-
-        viewModel.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -121,19 +118,6 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
         navigationItem.title = model.name ?? ""
     }
 
-    // MARK: - Binding method
-
-    func setupBinding() {
-        viewModel.model.bind { [weak self] model in
-            guard let self = self,
-                  let _ = model else { return }
-
-            self.reloadView()
-        }
-    }
-
-    private func reloadView() {}
-
     private func setupScrollView() {
         view.addSubview(scrollView)
 
@@ -147,21 +131,17 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
     private func setupCharacterImageView() {
         contentView.addSubview(characterImageView)
 
+        let status = model.status ?? false
+
         characterImageView.clipsToBounds = true
         characterImageView.contentMode = .scaleAspectFill
-        characterImageView.layer.cornerRadius = 150.0
-        characterImageView.layer.borderColor = UIColor.white.cgColor
-        characterImageView.layer.borderWidth = CGFloat(3)
+        characterImageView.layer.cornerRadius = Constants.cornerRadius
+        characterImageView.layer.borderColor = status ? Constants.greenColor : Constants.redColor
+        characterImageView.layer.borderWidth = Constants.borderWidth
 
         if let urlImage = model.urlImage, let url = URL(string: urlImage) {
             characterImageView.kf.setImage(with: url)
         }
-
-        let status = model.status ?? false
-
-        characterImageView.layer.cornerRadius = 150.0
-        characterImageView.layer.borderColor = status ? UIColor.green.cgColor : UIColor.red.cgColor
-        characterImageView.layer.borderWidth = CGFloat(5)
 
         setupCharacterImageViewConstraints()
     }
@@ -169,7 +149,7 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
     private func setupCharacterNameView() {
         contentView.addSubview(characterNameView)
 
-        let model = RMDataViewModel(titleText: "Name",
+        let model = RMDataViewModel(titleText: Constants.nameString,
                                     descriptionText: self.model.name ?? "")
         characterNameView.configure(model: model)
 
@@ -179,7 +159,7 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
     private func setupCharacterGenderView() {
         contentView.addSubview(characterGenderView)
 
-        let model = RMDataViewModel(titleText: "Gender",
+        let model = RMDataViewModel(titleText: Constants.genderString,
                                     descriptionText: self.model.gender ?? "")
         characterGenderView.configure(model: model)
 
@@ -189,7 +169,7 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
     private func setupCharacterSpecieView() {
         contentView.addSubview(characterSpecieView)
 
-        let model = RMDataViewModel(titleText: "Specie",
+        let model = RMDataViewModel(titleText: Constants.specieString,
                                     descriptionText: self.model.species ?? "")
         characterSpecieView.configure(model: model)
 
@@ -199,7 +179,7 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
     private func setupCharacterOriginView() {
         contentView.addSubview(characterOriginView)
 
-        let model = RMDataViewModel(titleText: "Origin",
+        let model = RMDataViewModel(titleText: Constants.originString,
                                     descriptionText: self.model.origin ?? "")
         characterOriginView.configure(model: model)
 
@@ -209,7 +189,7 @@ final class CharacterDetailView: RMBaseViewController<CharactersCoordinator> {
     private func setupCharacterLocationView() {
         contentView.addSubview(characterLocationView)
 
-        let model = RMDataViewModel(titleText: "Location",
+        let model = RMDataViewModel(titleText: Constants.locationString,
                                     descriptionText: self.model.location ?? "")
         characterLocationView.configure(model: model)
 

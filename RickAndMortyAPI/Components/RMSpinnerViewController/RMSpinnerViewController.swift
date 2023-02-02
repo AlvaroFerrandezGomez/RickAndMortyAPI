@@ -15,6 +15,7 @@ final class RMSpinnerViewController: UIViewController {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.color = .white
         spinner.startAnimating()
+        
         return spinner
     }()
 
