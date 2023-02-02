@@ -129,9 +129,11 @@ final class CharacterDetailView: RMBaseViewController {
             guard let self = self,
                   let _ = model else { return }
 
-//            self.reloadView()
+            self.reloadView()
         }
     }
+
+    private func reloadView() {}
 
     private func setupScrollView() {
         view.addSubview(scrollView)

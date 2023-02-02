@@ -23,6 +23,7 @@ final class DefaultCharactersUseCase: CharactersUseCase {
 
     func execute(completion: @escaping (Result<CharactersEntity, RMError>) -> Void) {
         currentPage += 1
+        // misco controlar el totalPages
         let completion: (Result<CharactersDecodable, RMError>) -> Void = { result in
             switch result {
             case .success(let decodable):

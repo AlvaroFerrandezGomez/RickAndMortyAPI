@@ -10,25 +10,31 @@ import Foundation
 protocol CharactersViewModelInput {
     func viewDidLoad()
     func fetchData()
+    func searchCharacter(searchText: String)
+    func resetSearch()
     func characterSelected(characterDetail: CharacterDetailModel)
 }
 
 protocol CharactersViewModelOutput {
     var model: Box<CharactersModel?> { get }
+    var unfilteredCharacters: [CharacterDetailModel] { get }
     var loadingStatus: Box<RMLoadingStatus?> { get }
     var error: Box<RMError?> { get }
     var characterSelected: Box<CharacterDetailModel?> { get }
     var moreData: Bool { get }
+    var searching: Bool { get }
 }
 
 typealias CharactersViewModel = CharactersViewModelInput & CharactersViewModelOutput
 
 final class DefaultCharactersViewModel: CharactersViewModel {
     var model: Box<CharactersModel?> = Box(nil)
+    var unfilteredCharacters: [CharacterDetailModel] = []
     var loadingStatus: Box<RMLoadingStatus?> = Box(nil)
     var error: Box<RMError?> = Box(nil)
     var characterSelected: Box<CharacterDetailModel?> = Box(nil)
     var moreData: Bool = true
+    var searching: Bool = false
 
     var fetchCharactersUseCase: CharactersUseCase = DefaultCharactersUseCase()
 
@@ -68,6 +74,7 @@ final class DefaultCharactersViewModel: CharactersViewModel {
                                                                        location: character.location?.name ?? ""))
                     }
 
+                    self.unfilteredCharacters = charactersAuxiliar
                     self.model.value = CharactersModel(characters: charactersAuxiliar)
                 case let .failure(error):
                     self.loadingStatus.value = .stop
@@ -77,7 +84,22 @@ final class DefaultCharactersViewModel: CharactersViewModel {
         }
     }
 
+    func searchCharacter(searchText: String) {
+        searching = true
+
+        let charactersAuxiliar = unfilteredCharacters.filter { charactersAuxiliar in
+            guard let name = charactersAuxiliar.name else { return false }
+            return name.lowercased().contains(searchText.lowercased())
+        }
+
+        model.value = CharactersModel(characters: charactersAuxiliar)
+    }
+
     func characterSelected(characterDetail: CharacterDetailModel) {
         characterSelected.value = characterDetail
+    }
+    
+    func resetSearch() {
+        model.value = CharactersModel(characters: unfilteredCharacters)
     }
 }

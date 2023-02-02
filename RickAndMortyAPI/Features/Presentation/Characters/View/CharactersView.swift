@@ -9,16 +9,29 @@ import UIKit
 
 // MARK: - CharactersView
 
-final class CharactersView: RMBaseViewController {
+final class CharactersView: RMBaseViewController, UISearchControllerDelegate, UISearchResultsUpdating {
     weak var coordinator: MainCoordinator?
 
     var viewModel = DefaultCharactersViewModel()
+
+    private(set) var searchController: UISearchController = {
+        let searchController = UISearchController()
+
+        return searchController
+    }()
 
     private(set) var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         return collectionView
+    }()
+
+    private(set) var emptyView: RMEmptyView = {
+        let emptyView = RMEmptyView(frame: .zero)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+
+        return emptyView
     }()
 
     private lazy var collectionViewDataSource: CharactersViewDatasource = {
@@ -60,7 +73,19 @@ final class CharactersView: RMBaseViewController {
     private func setupView() {
         view.backgroundColor = .white
 
+        setupSearchBar()
         setupCollectionView()
+        setupEmptyView()
+    }
+
+    private func setupSearchBar() {
+        navigationItem.searchController = searchController
+
+        searchController.delegate = self
+
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search a character"
     }
 
     private func setupCollectionView() {
@@ -72,6 +97,15 @@ final class CharactersView: RMBaseViewController {
         collectionView.showsVerticalScrollIndicator = false
 
         setupCollectionViewConstraints()
+    }
+
+    private func setupEmptyView() {
+        view.addSubview(emptyView)
+
+        emptyView.isHidden = true
+        emptyView.configure()
+
+        setupEmptyViewConstraints()
     }
 
     // MARK: - Binding method
@@ -98,9 +132,12 @@ final class CharactersView: RMBaseViewController {
 
         viewModel.model.bind { [weak self] model in
             guard let self = self,
-                  let _ = model else { return }
-
-            self.reloadView()
+                  let model = model else { return }
+            if !model.characters.isEmpty {
+                self.reloadView()
+            } else {
+                self.showEmptyView()
+            }
         }
 
         viewModel.characterSelected.bind { [weak self] characterSelected in
@@ -113,7 +150,27 @@ final class CharactersView: RMBaseViewController {
 
     private func reloadView() {
         DispatchQueue.main.async {
+            self.emptyView.isHidden = true
+            self.collectionView.isHidden = false
             self.collectionView.reloadData()
+        }
+    }
+
+    private func showEmptyView() {
+        DispatchQueue.main.async {
+            self.emptyView.isHidden = false
+            self.collectionView.isHidden = true
+        }
+    }
+}
+
+extension CharactersView {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        if text != "", text.count > 2 {
+            viewModel.searchCharacter(searchText: text)
+        } else {
+            viewModel.resetSearch()
         }
     }
 }

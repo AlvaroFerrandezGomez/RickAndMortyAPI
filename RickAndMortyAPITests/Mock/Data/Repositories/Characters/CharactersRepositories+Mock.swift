@@ -9,6 +9,7 @@
 import XCTest
 
 final class CharactersRepositoryRepositorySuccessMock: CharactersRepository {
+    // misco añadir parametro
     func fetchCharacters(completion: @escaping (Result<CharactersDecodable, RMError>) -> Void) {
         let json = CharactersMock.makeJsonMock()
         guard let decodable = try? JSONDecoder().decode(CharactersDecodable.self, from: json) else { return }

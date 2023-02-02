@@ -25,7 +25,6 @@ final class CharactersUseCaseTests: XCTestCase {
     }
     
     func testCharactersUseCaseTest_Success() {
-        // GIVEN
         let expectation = expectation(description: "You should get a valid decodable that contains 1 character of Rick and Morty")
         
         succesUseCase?.execute { result in

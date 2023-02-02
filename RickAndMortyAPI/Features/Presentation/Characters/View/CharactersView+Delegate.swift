@@ -33,7 +33,7 @@ final class CharactersViewDelegate: NSObject, UICollectionViewDelegate, UICollec
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let numberOfCharacters = viewModel.model.value?.characters.count ?? 1
-        if indexPath.row == numberOfCharacters - 1 {
+        if indexPath.row == numberOfCharacters - 1, !viewModel.searching {
             viewModel.fetchData()
         }
     }
